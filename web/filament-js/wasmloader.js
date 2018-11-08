@@ -66,7 +66,7 @@ Filament.init = function(assets, onready) {
             return response.arrayBuffer();
         }).then(function(arrayBuffer) {
             Filament.assets[name] = new Uint8Array(arrayBuffer);
-            if (--Filament.remainingInitializationTasks == 0) {
+            if (--Filament.remainingInitializationTasks === 0) {
                 Filament.onReady();
             }
         });
@@ -81,4 +81,22 @@ Filament.postRun = function() {
     if (--Filament.remainingInitializationTasks == 0 && Filament.onReady) {
         Filament.onReady();
     }
+};
+
+/// fetch ::function:: Downloads assets and invokes a callback when done.
+Filament.fetch = function(assets, onDone) {
+    var remainingAssets = assets.length;
+    assets.forEach(function(name) {
+        fetch(name).then(function(response) {
+            if (!response.ok) {
+                throw new Error(name);
+            }
+            return response.arrayBuffer();
+        }).then(function(arrayBuffer) {
+            Filament.assets[name] = new Uint8Array(arrayBuffer);
+            if (--remainingAssets === 0) {
+                onDone();
+            }
+        });
+    });
 };

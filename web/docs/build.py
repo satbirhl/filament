@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# -*- coding: future_fstrings -*-
+
+# To run this script, you may need to do the following on Ubuntu:
+#     sudo apt-get install python3-pip
+#     pip3 install -r requirements.txt
 
 """Converts markdown into HTML and extracts JavaScript code blocks.
 
@@ -482,7 +487,7 @@ if __name__ == "__main__":
     ENABLE_EMBEDDED_DEMO = not args.disable_demo
     os.makedirs(os.path.realpath(OUTPUT_DIR), exist_ok=True)
 
-    for name in ["triangle", "redball"]:
+    for name in ["triangle", "redball", "suzanne"]:
         weave(name)
         tangle(name)
         generate_demo_html(name)
@@ -491,10 +496,19 @@ if __name__ == "__main__":
     copy_src_file(ROOT_DIR + 'third_party/gl-matrix/gl-matrix-min.js')
     copy_built_file('web/filament-js/filament.js')
     copy_built_file('web/filament-js/filament.wasm')
+    copy_built_file('web/samples/suzanne.filamesh')
+    copy_built_file('web/samples/metallic.ktx')
+    copy_built_file('web/samples/normal.ktx')
+    copy_built_file('web/samples/roughness.ktx')
+    copy_built_file('web/samples/ao.ktx')
+    copy_built_file('web/samples/albedo.ktx')
     copy_built_file('web/samples/pillars_2k/pillars_2k_skybox.ktx')
     copy_built_file('web/samples/pillars_2k/pillars_2k_ibl.ktx')
+    copy_built_file('web/samples/syferfontein_18d_clear_2k/syferfontein_18d_clear_2k_skybox.ktx')
+    copy_built_file('web/samples/syferfontein_18d_clear_2k/syferfontein_18d_clear_2k_ibl.ktx')
     build_filamat('triangle')
     build_filamat('plastic')
+    build_filamat('textured')
     build_reference()
 
     if args.server:

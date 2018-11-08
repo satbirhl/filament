@@ -1,16 +1,15 @@
 
-This tutorial will describe how to create the redball demo, introducing you to materials and
+This tutorial will describe how to create the **redball** demo, introducing you to materials and
 textures.
 
-You'll need to use a couple command-line tools: `matc` and `cmgen`. You can find these in the
+For starters, create a text file called `redball.html` and copy over the HTML that we used in the
+[previous tutorial]. Change the last script tag from `triangle.js` to `redball.js`.
+
+Next you'll need to get a couple command-line tools: `matc` and `cmgen`. You can find these in the
 appropriate [Filament release](//github.com/google/filament/releases). You should choose the
 archive that corresponds to your development machine rather than the one for web.
 
 ## Define plastic material
-
-The `matc` tool consumes a text file containing a high-level description of a PBR material, and
-produces a binary material package that contains shader code and associated metadata. For more
-information, see the official document describing the [Filament Material System]().
 
 Let's try out `matc`. Create the following file in your favorite text editor and call it
 `plastic.mat`.
@@ -52,9 +51,6 @@ tutorial.
 Next we'll use Filament's `cmgen` tool to consume a HDR environment map in latlong format, and
 produce two cubemap files: a mipmapped IBL and a blurry skybox.
 
-[pillars_2k.hdr]:
-//github.com/google/filament/blob/master/third_party/environments/pillars_2k.hdr
-
 Download [pillars_2k.hdr], then invoke the following command in your terminal.
 
 ```bash
@@ -66,10 +62,7 @@ well as a text file with spherical harmonics coefficients. Move the KTX files in
 folder. You can discard the text file because the IBL KTX contains these coefficients in its
 metadata.
 
-## Create HTML and JavaScript
-
-Create a text file called `redball.html` and copy over the HTML that we used in the [previous
-tutorial](tutorial_triangle.html). Change the last script tag from `triangle.js` to `redball.js`.
+## Create JavaScript
 
 Next, create `redball.js` with the following content.
 
@@ -304,5 +297,14 @@ const skybox = engine.createSkyFromKtx('pillars_2k_skybox.ktx');
 scene.setSkybox(skybox);
 ```
 
-That's it, we now have a shiny red ball floating in an environment! The complete JavaScript
-file is available [here](tutorial_redball.js).
+That's it, we now have a shiny red ball floating in an environment! The complete JavaScript file is
+available [here](tutorial_redball.js).
+
+In the [next tutorial], we'll take a closer look at textures and interaction.
+
+[pillars_2k.hdr]:
+//github.com/google/filament/blob/master/third_party/environments/pillars_2k.hdr
+
+[next tutorial]: tutorial_suzanne.html
+[previous tutorial]: tutorial_triangle.html
+[Filament release]: //github.com/google/filament/releases
